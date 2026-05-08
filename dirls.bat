@@ -1,6 +1,11 @@
-
 @echo off
-REM Запуск менеджера
-for /f "delims=" %%i in ('python C:\Users\Cubex33\Desktop\Work\SysCommand\dirls.py') do set NEWDIR=%%i
-REM Переход в директорию, которую вернул скрипт
-cd /d %NEWDIR%
+
+for /f "delims=" %%i in ('python "%~dp0dirls.py"') do set "TARGET=%%i"
+
+if defined TARGET (
+    if exist "%TARGET%\*" (
+        cd /d "%TARGET%"
+    ) else (
+        cd "" "%TARGET%"
+    )
+)
